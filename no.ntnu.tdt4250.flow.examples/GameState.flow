@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow:Flow xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:flow="http://www.ntnu.no/tdt4250/flow" name="Game state flow">
+  <node xsi:type="flow:StartNode" label="Game Active" description="The game is active " outgoing="//@transition.2 //@transition.0 //@transition.1" incoming="//@transition.5 //@transition.7"/>
+  <node xsi:type="flow:ActionNode" label="Pressure plate activated" description="A pressure plate was activated" outgoing="//@transition.3" incoming="//@transition.0" actionType="Item activation"/>
+  <node xsi:type="flow:DecisionNode" label="All pressure plates activated?" description="" outgoing="//@transition.4 //@transition.5" incoming="//@transition.3" condition="All pressure plates activated"/>
+  <node xsi:type="flow:ActionNode" label="Player eliminated" outgoing="//@transition.6" incoming="//@transition.1" actionType="Trigger"/>
+  <node xsi:type="flow:DecisionNode" label="Any player remaining?" outgoing="//@transition.8 //@transition.7" incoming="//@transition.6" condition="Any player remaining"/>
+  <node xsi:type="flow:ActionNode" label="Time Expired" outgoing="//@transition.9" incoming="//@transition.2" actionType="Trigger"/>
+  <node xsi:type="flow:EndNode" label="Game End: Win" incoming="//@transition.4" outcome="Win"/>
+  <node xsi:type="flow:EndNode" label="Game End: Loss" incoming="//@transition.8 //@transition.9" outcome="Loss"/>
+  <transition source="//@node.0" target="//@node.1"/>
+  <transition source="//@node.0" target="//@node.3"/>
+  <transition source="//@node.0" target="//@node.5"/>
+  <transition source="//@node.1" target="//@node.2"/>
+  <transition xsi:type="flow:ConditionalTransition" source="//@node.2" target="//@node.6" conditionSatisfied="true"/>
+  <transition xsi:type="flow:ConditionalTransition" source="//@node.2" target="//@node.0"/>
+  <transition source="//@node.3" target="//@node.4"/>
+  <transition xsi:type="flow:ConditionalTransition" source="//@node.4" target="//@node.0" conditionSatisfied="true"/>
+  <transition xsi:type="flow:ConditionalTransition" source="//@node.4" target="//@node.7"/>
+  <transition source="//@node.5" target="//@node.7"/>
+</flow:Flow>

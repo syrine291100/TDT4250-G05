@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow:Flow xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:flow="http://www.ntnu.no/tdt4250/flow" name="Player flow">
+  <node xsi:type="flow:StartNode" label="Player Start" description="Player starting point from which actions may trigger" outgoing="//@transition.1" incoming="//@transition.4 //@transition.13 //@transition.11 //@transition.15"/>
+  <node xsi:type="flow:ActionNode" label="Move Triggered" description="Player triggered to move" outgoing="//@transition.2" incoming="//@transition.1" actionType="Trigger"/>
+  <node xsi:type="flow:ActionNode" label="Face Direction" description="Player should face the move direction" outgoing="//@transition.3" incoming="//@transition.2" actionType="Movement"/>
+  <node xsi:type="flow:DecisionNode" label="Airborne?" description="Airborne player have no movement agency" outgoing="//@transition.4 //@transition.5" incoming="//@transition.3" condition="Player is airborne"/>
+  <node xsi:type="flow:DecisionNode" label="Free space?" description="The player may move where is free space" outgoing="//@transition.7 //@transition.6" incoming="//@transition.5 //@transition.17" condition="Is there free space for the player?"/>
+  <node xsi:type="flow:ActionNode" label="Complete move" description="Player moves successfully" outgoing="//@transition.12" incoming="//@transition.6 //@transition.10" actionType="Movement"/>
+  <node xsi:type="flow:DecisionNode" label="Surface Lava?" description="Player can not survive stepping on lava" outgoing="//@transition.13 //@transition.14" incoming="//@transition.12" condition="Surface lava?"/>
+  <node xsi:type="flow:DecisionNode" label="Rock?" outgoing="//@transition.8 //@transition.9" incoming="//@transition.7" condition="is Rock"/>
+  <node xsi:type="flow:ActionNode" label="Push rock" outgoing="//@transition.0" incoming="//@transition.9" actionType="Interaction"/>
+  <node xsi:type="flow:DecisionNode" label="Rock moved?" outgoing="//@transition.10 //@transition.11" incoming="//@transition.0" condition="Rock moved"/>
+  <node xsi:type="flow:DecisionNode" label="Connected Portal?" outgoing="//@transition.15 //@transition.16" incoming="//@transition.8" condition="is Connected Portal"/>
+  <node xsi:type="flow:ActionNode" label="Move into portal" outgoing="//@transition.17" incoming="//@transition.16" actionType="Interaction"/>
+  <node xsi:type="flow:EndNode" label="Player End" description="Player flow has ended" incoming="//@transition.14" outcome="Player eliminated"/>
+  <transition source="//@node.8" target="//@node.9"/>
+  <transition source="//@node.0" target="//@node.1"/>
+  <transition source="//@node.1" target="//@node.2"/>
+  <transition source="//@node.2" target="//@node.3"/>
+  <transition xsi:type="flow:ConditionalTransition" source="//@node.3" target="//@node.0" conditionSatisfied="true"/>
+  <transition xsi:type="flow:ConditionalTransition" source="//@node.3" target="//@node.4"/>
+  <transition xsi:type="flow:ConditionalTransition" source="//@node.4" target="//@node.5" conditionSatisfied="true"/>
+  <transition xsi:type="flow:ConditionalTransition" source="//@node.4" target="//@node.7"/>
+  <transition xsi:type="flow:ConditionalTransition" source="//@node.7" target="//@node.10"/>
+  <transition xsi:type="flow:ConditionalTransition" source="//@node.7" target="//@node.8" conditionSatisfied="true"/>
+  <transition xsi:type="flow:ConditionalTransition" source="//@node.9" target="//@node.5" conditionSatisfied="true"/>
+  <transition xsi:type="flow:ConditionalTransition" source="//@node.9" target="//@node.0"/>
+  <transition source="//@node.5" target="//@node.6"/>
+  <transition xsi:type="flow:ConditionalTransition" source="//@node.6" target="//@node.0"/>
+  <transition xsi:type="flow:ConditionalTransition" source="//@node.6" target="//@node.12" conditionSatisfied="true"/>
+  <transition xsi:type="flow:ConditionalTransition" source="//@node.10" target="//@node.0"/>
+  <transition xsi:type="flow:ConditionalTransition" source="//@node.10" target="//@node.11" conditionSatisfied="true"/>
+  <transition source="//@node.11" target="//@node.4"/>
+</flow:Flow>

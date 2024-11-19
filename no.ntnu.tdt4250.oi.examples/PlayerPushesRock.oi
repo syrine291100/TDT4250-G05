@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<oi:ObjectInteraction xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:oi="http://www.example.org/oi">
+  <object xsi:type="oi:Initiator" action="//@action">
+    <state xsi:type="oi:Type" name="Player"/>
+    <state xsi:type="oi:Position" outgoing="//@action/@transition.0" x="1" y="1"/>
+    <state xsi:type="oi:Position" incoming="//@action/@transition.0" x="1"/>
+    <state xsi:type="oi:Direction" name="Right"/>
+  </object>
+  <object xsi:type="oi:Responder">
+    <state xsi:type="oi:Type" name="Rock"/>
+    <state xsi:type="oi:Position" incoming="//@action/@transition.1" x="3" y="1"/>
+    <state xsi:type="oi:Position" outgoing="//@action/@transition.1" x="2" y="1"/>
+  </object>
+  <action responder="//@object.1" initiator="//@object.0" name="Pushes">
+    <transition beforeState="//@object.0/@state.1" afterState="//@object.0/@state.2"/>
+    <transition beforeState="//@object.1/@state.2" afterState="//@object.1/@state.1"/>
+  </action>
+</oi:ObjectInteraction>

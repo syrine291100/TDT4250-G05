@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sm:StateMachine xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:sm="http://www.ntnu.no/tdt4250/sm" name="EspressoMachine">
+  <transition name="BrewEspresso" source="//@state.1" target="//@state.0"/>
+  <transition name="PowerOutage" source="//@state.0" target="//@state.2"/>
+  <state name="Brewing" outgoing="//@transition.1" incoming="//@transition.0"/>
+  <state name="Off" outgoing="//@transition.0"/>
+  <state xsi:type="sm:InitialState" name="PowerOff" incoming="//@transition.1"/>
+</sm:StateMachine>

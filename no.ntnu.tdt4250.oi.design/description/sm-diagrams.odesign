@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<description:Group xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:description="http://www.eclipse.org/sirius/description/1.1.0" xmlns:description_1="http://www.eclipse.org/sirius/diagram/description/1.1.0" xmlns:properties="http://www.eclipse.org/sirius/properties/1.0.0" xmlns:style="http://www.eclipse.org/sirius/diagram/description/style/1.1.0" xmlns:tool="http://www.eclipse.org/sirius/diagram/description/tool/1.1.0" xmlns:tool_1="http://www.eclipse.org/sirius/description/tool/1.1.0" name="sm-diagrams" version="12.0.0.2017041100">
+  <ownedViewpoints name="StateTransitions">
+    <ownedRepresentations xsi:type="description_1:DiagramDescription" name="StateMachine" domainClass="sm::StateMachine" enablePopupBars="true">
+      <defaultLayer name="Default">
+        <nodeMappings name="StateNode" semanticCandidatesExpression="[ self.state->select(s | s.children->size()=0) /]" domainClass="sm::State">
+          <style xsi:type="style:EllipseNodeDescription" borderSizeComputationExpression="1" labelSize="12" showIcon="false" resizeKind="NSEW">
+            <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='yellow']"/>
+          </style>
+          <conditionnalStyles predicateExpression="[ self.eContainer(sm::StateMachine).final->includes(self) /]">
+            <style xsi:type="style:EllipseNodeDescription" borderSizeComputationExpression="1" labelSize="12" showIcon="false" resizeKind="NSEW">
+              <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='light_red']"/>
+            </style>
+          </conditionnalStyles>
+        </nodeMappings>
+        <containerMappings name="StateWithSubstatesNode" semanticCandidatesExpression="[ self.state->select(s | s.children->size()>1) /]" domainClass="sm::State">
+          <subNodeMappings name="StateNode" semanticCandidatesExpression="feature:children" domainClass="sm::State">
+            <style xsi:type="style:EllipseNodeDescription" borderSizeComputationExpression="1" labelSize="12" showIcon="false" resizeKind="NSEW">
+              <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='yellow']"/>
+            </style>
+            <conditionnalStyles predicateExpression="[  diagram.target.oclAsType(sm::StateMachine).final->includes(self) /]">
+              <style xsi:type="style:EllipseNodeDescription" borderSizeComputationExpression="1" labelSize="12" showIcon="false" resizeKind="NSEW">
+                <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+                <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+                <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='light_red']"/>
+              </style>
+            </conditionnalStyles>
+          </subNodeMappings>
+          <style xsi:type="style:FlatContainerStyleDescription" borderSizeComputationExpression="1" labelSize="12" showIcon="false">
+            <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='light_yellow']"/>
+            <foregroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='light_yellow']"/>
+          </style>
+        </containerMappings>
+        <toolSections name="SectionCreation">
+          <ownedTools xsi:type="tool:NodeCreationDescription" name="CreateStateTool" label="State" nodeMappings="//@ownedViewpoints[name='StateTransitions']/@ownedRepresentations[name='StateMachine']/@defaultLayer/@nodeMappings[name='StateNode']">
+            <variable name="container"/>
+            <viewVariable name="containerView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:CreateInstance" typeName="sm::State" referenceName="state">
+                <subModelOperations xsi:type="tool_1:SetValue" featureName="name" valueExpression="New State"/>
+              </firstModelOperations>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:NodeCreationDescription" name="CreateFinalStateTool" label="Final State" nodeMappings="//@ownedViewpoints[name='StateTransitions']/@ownedRepresentations[name='StateMachine']/@defaultLayer/@nodeMappings[name='StateNode']">
+            <variable name="container"/>
+            <viewVariable name="containerView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:CreateInstance" typeName="sm::State" referenceName="state">
+                <subModelOperations xsi:type="tool_1:SetValue" featureName="name" valueExpression="New State"/>
+                <subModelOperations xsi:type="tool_1:ChangeContext" browseExpression="var:container">
+                  <subModelOperations xsi:type="tool_1:SetValue" featureName="final" valueExpression="[ self.final->including(instance) /]"/>
+                </subModelOperations>
+              </firstModelOperations>
+            </initialOperation>
+          </ownedTools>
+        </toolSections>
+      </defaultLayer>
+      <additionalLayers name="Transitions">
+        <nodeMappings name="FakeInitialState" semanticCandidatesExpression="var:self" domainClass="sm::StateMachine">
+          <style xsi:type="style:DotDescription" labelSize="12" showIcon="false" labelExpression="Start" labelPosition="node" resizeKind="NSEW">
+            <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+          </style>
+        </nodeMappings>
+        <edgeMappings name="TransitionEdge" sourceMapping="//@ownedViewpoints[name='StateTransitions']/@ownedRepresentations[name='StateMachine']/@defaultLayer/@nodeMappings[name='StateNode'] //@ownedViewpoints[name='StateTransitions']/@ownedRepresentations[name='StateMachine']/@defaultLayer/@containerMappings[name='StateWithSubstatesNode']" targetMapping="//@ownedViewpoints[name='StateTransitions']/@ownedRepresentations[name='StateMachine']/@defaultLayer/@nodeMappings[name='StateNode']" targetFinderExpression="[ self.target /]" sourceFinderExpression="feature:source" domainClass="sm::Transition" useDomainElement="true">
+          <style sizeComputationExpression="2">
+            <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <centerLabelStyleDescription labelSize="12">
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            </centerLabelStyleDescription>
+          </style>
+        </edgeMappings>
+        <edgeMappings name="FakeInitialTransition" sourceMapping="//@ownedViewpoints[name='StateTransitions']/@ownedRepresentations[name='StateMachine']/@additionalLayers[name='Transitions']/@nodeMappings[name='FakeInitialState']" targetMapping="//@ownedViewpoints[name='StateTransitions']/@ownedRepresentations[name='StateMachine']/@defaultLayer/@nodeMappings[name='StateNode']" targetFinderExpression="feature:initial">
+          <style lineStyle="dash" sizeComputationExpression="[ state->size() /]">
+            <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <centerLabelStyleDescription labelSize="12">
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            </centerLabelStyleDescription>
+          </style>
+        </edgeMappings>
+      </additionalLayers>
+    </ownedRepresentations>
+    <ownedJavaExtensions qualifiedClassName="no.ntnu.tdt4250.sm.diagrams.Services"/>
+  </ownedViewpoints>
+  <extensions xsi:type="properties:ViewExtensionDescription" name="Properties">
+    <categories name="Default Category">
+      <pages name="Default Page" labelExpression="State Properties" domainClass="sm::State" semanticCandidateExpression="var:self" groups="//@extensions.0/@categories.0/@groups.0"/>
+      <groups name="Default Group" labelExpression="Group" domainClass="sm::State" semanticCandidateExpression="var:self">
+        <controls xsi:type="properties:TextDescription" labelExpression="Name" valueExpression="feature:name">
+          <initialOperation>
+            <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="var:self">
+              <subModelOperations xsi:type="tool_1:SetValue" featureName="name" valueExpression="var:newValue"/>
+            </firstModelOperations>
+          </initialOperation>
+        </controls>
+        <controls xsi:type="properties:CheckboxDescription" name="IsInitial" labelExpression="Initial" valueExpression="aql:(self.eContainer().oclAsType(sm::StateMachine).initial == self)">
+          <initialOperation>
+            <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="var:self"/>
+          </initialOperation>
+        </controls>
+      </groups>
+    </categories>
+  </extensions>
+</description:Group>
