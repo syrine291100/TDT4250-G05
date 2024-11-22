@@ -1,46 +1,255 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<description:Group xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:description="http://www.eclipse.org/sirius/description/1.1.0" xmlns:description_1="http://www.eclipse.org/sirius/diagram/description/1.1.0" xmlns:properties="http://www.eclipse.org/sirius/properties/1.0.0" xmlns:style="http://www.eclipse.org/sirius/diagram/description/style/1.1.0" xmlns:tool="http://www.eclipse.org/sirius/description/tool/1.1.0" name="oi-diagrams" version="12.0.0.2017041100">
+<description:Group xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:description="http://www.eclipse.org/sirius/description/1.1.0" xmlns:description_1="http://www.eclipse.org/sirius/diagram/description/1.1.0" xmlns:properties="http://www.eclipse.org/sirius/properties/1.0.0" xmlns:style="http://www.eclipse.org/sirius/diagram/description/style/1.1.0" xmlns:tool="http://www.eclipse.org/sirius/diagram/description/tool/1.1.0" xmlns:tool_1="http://www.eclipse.org/sirius/description/tool/1.1.0" name="oi-diagrams" version="12.0.0.2017041100">
   <ownedViewpoints name="Oi Viewpoint" label="Oi Viewpoint" modelFileExtension="oi">
     <ownedRepresentations xsi:type="description_1:DiagramDescription" name="ObjectInteraction" label="ObjectInteraction" initialisation="true" domainClass="oi::ObjectInteraction" enablePopupBars="true">
+      <metamodel href="http://www.example.org/oi#/"/>
       <defaultLayer name="Default">
-        <nodeMappings name="Action" label="Action" domainClass="oi::Action">
-          <style xsi:type="style:LozengeNodeDescription" labelSize="12" labelPosition="node" resizeKind="NSEW">
+        <nodeMappings name="Action" domainClass="oi::Action">
+          <style xsi:type="style:LozengeNodeDescription" labelSize="12" sizeComputationExpression="15" labelPosition="node" resizeKind="NSEW">
             <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
-            <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
+            <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='light_orange']"/>
           </style>
+          <conditionnalStyles predicateExpression="[ thisEObject.oclIsTypeOf(oi::Action) and thisEObject.name.matches('Enters') /]">
+            <style xsi:type="style:LozengeNodeDescription" labelSize="12" sizeComputationExpression="15" labelPosition="node" resizeKind="NSEW">
+              <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='light_purple']"/>
+            </style>
+          </conditionnalStyles>
         </nodeMappings>
-        <containerMappings name="Object" semanticCandidatesExpression="feature:object" domainClass="oi::Object" childrenPresentation="List">
-          <subNodeMappings name="State" semanticCandidatesExpression="feature:eAllContents" domainClass="oi::State">
+        <edgeMappings name="InitiatorAfterTransition" sourceMapping="//@ownedViewpoints[name='Oi%20Viewpoint']/@ownedRepresentations[name='ObjectInteraction']/@defaultLayer/@nodeMappings[name='Action']" targetMapping="//@ownedViewpoints[name='Oi%20Viewpoint']/@ownedRepresentations[name='ObjectInteraction']/@defaultLayer/@containerMappings[name='AfterObject']" targetFinderExpression="feature:initiator">
+          <style sizeComputationExpression="2">
+            <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='dark_red']"/>
+            <centerLabelStyleDescription labelSize="12">
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            </centerLabelStyleDescription>
+          </style>
+        </edgeMappings>
+        <edgeMappings name="InitiatorBeforeTransition" sourceMapping="//@ownedViewpoints[name='Oi%20Viewpoint']/@ownedRepresentations[name='ObjectInteraction']/@defaultLayer/@nodeMappings[name='Action']" targetMapping="//@ownedViewpoints[name='Oi%20Viewpoint']/@ownedRepresentations[name='ObjectInteraction']/@defaultLayer/@containerMappings[name='BeforeObject']" targetFinderExpression="feature:initiator">
+          <style sizeComputationExpression="2">
+            <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='red']"/>
+            <centerLabelStyleDescription labelSize="12">
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            </centerLabelStyleDescription>
+          </style>
+        </edgeMappings>
+        <edgeMappings name="ResponderBeforeTransition" sourceMapping="//@ownedViewpoints[name='Oi%20Viewpoint']/@ownedRepresentations[name='ObjectInteraction']/@defaultLayer/@nodeMappings[name='Action']" targetMapping="//@ownedViewpoints[name='Oi%20Viewpoint']/@ownedRepresentations[name='ObjectInteraction']/@defaultLayer/@containerMappings[name='BeforeObject']" targetFinderExpression="feature:responder">
+          <style sizeComputationExpression="2">
+            <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='light_blue']"/>
+            <centerLabelStyleDescription labelSize="12">
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            </centerLabelStyleDescription>
+          </style>
+        </edgeMappings>
+        <edgeMappings name="ResponderAfterTransition" sourceMapping="//@ownedViewpoints[name='Oi%20Viewpoint']/@ownedRepresentations[name='ObjectInteraction']/@defaultLayer/@nodeMappings[name='Action']" targetMapping="//@ownedViewpoints[name='Oi%20Viewpoint']/@ownedRepresentations[name='ObjectInteraction']/@defaultLayer/@containerMappings[name='AfterObject']" targetFinderExpression="feature:responder">
+          <style sizeComputationExpression="2">
+            <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='blue']"/>
+            <centerLabelStyleDescription labelSize="12">
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            </centerLabelStyleDescription>
+          </style>
+        </edgeMappings>
+        <edgeMappings name="ConnectedToAfter" sourceMapping="//@ownedViewpoints[name='Oi%20Viewpoint']/@ownedRepresentations[name='ObjectInteraction']/@defaultLayer/@containerMappings[name='AfterObject']" targetMapping="//@ownedViewpoints[name='Oi%20Viewpoint']/@ownedRepresentations[name='ObjectInteraction']/@defaultLayer/@containerMappings[name='AfterObject']" targetFinderExpression="[ self.state->select(s | s.oclIsKindOf(oi::Connection)).oclAsType(oi::Connection).object /]">
+          <style sizeComputationExpression="2">
+            <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
+            <centerLabelStyleDescription labelSize="12">
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            </centerLabelStyleDescription>
+          </style>
+        </edgeMappings>
+        <edgeMappings name="ConnectedToBefore" sourceMapping="//@ownedViewpoints[name='Oi%20Viewpoint']/@ownedRepresentations[name='ObjectInteraction']/@defaultLayer/@containerMappings[name='BeforeObject']" targetMapping="//@ownedViewpoints[name='Oi%20Viewpoint']/@ownedRepresentations[name='ObjectInteraction']/@defaultLayer/@containerMappings[name='BeforeObject']" targetFinderExpression="[ self.state->select(s | s.oclIsKindOf(oi::Connection)).oclAsType(oi::Connection).object /]">
+          <style sizeComputationExpression="2">
+            <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
+            <centerLabelStyleDescription labelSize="12">
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            </centerLabelStyleDescription>
+          </style>
+        </edgeMappings>
+        <containerMappings name="BeforeObject" domainClass="oi::Object" childrenPresentation="List">
+          <subNodeMappings name="State" semanticCandidatesExpression="feature:state" domainClass="oi::State">
             <style xsi:type="style:SquareDescription" labelSize="12" labelExpression="feature:label" labelPosition="node" resizeKind="NSEW">
               <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
               <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
               <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
             </style>
+            <conditionnalStyles predicateExpression="[thisEObject.incoming/]">
+              <style xsi:type="style:SquareDescription" labelSize="12" showIcon="false" labelExpression="[null/]" labelPosition="node" resizeKind="NSEW">
+                <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='green']"/>
+                <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='green']"/>
+                <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='green']"/>
+              </style>
+            </conditionnalStyles>
+            <conditionnalStyles predicateExpression="[thisEObject.outgoing/]">
+              <style xsi:type="style:SquareDescription" labelSize="12" labelExpression="feature:label" labelPosition="node" resizeKind="NSEW">
+                <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='blue']"/>
+                <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='blue']"/>
+                <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='blue']"/>
+              </style>
+            </conditionnalStyles>
           </subNodeMappings>
-          <style xsi:type="style:FlatContainerStyleDescription" borderSizeComputationExpression="1" labelSize="12">
+          <style xsi:type="style:FlatContainerStyleDescription" borderSizeComputationExpression="1" labelSize="12" tooltipExpression="feature:eAllContents" roundedCorner="true" widthComputationExpression="25">
             <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
-            <foregroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='light_gray']"/>
+            <foregroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='light_green']"/>
           </style>
+          <conditionnalStyles predicateExpression="[ thisEObject.oclIsTypeOf(oi::Object) and oi::ObjectInteraction.allInstances()->select(o | o.object->includes(thisEObject))->isEmpty() /]">
+            <style xsi:type="style:FlatContainerStyleDescription" borderSizeComputationExpression="1" labelSize="12" roundedCorner="true" widthComputationExpression="25">
+              <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='light_purple']"/>
+              <foregroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
+            </style>
+          </conditionnalStyles>
+          <conditionnalStyles predicateExpression="[ thisEObject.oclIsTypeOf(oi::Initiator) /]">
+            <style xsi:type="style:FlatContainerStyleDescription" borderSizeComputationExpression="1" labelSize="12" roundedCorner="true" widthComputationExpression="25">
+              <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='light_blue']"/>
+              <foregroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
+            </style>
+          </conditionnalStyles>
+          <conditionnalStyles predicateExpression="[ thisEObject.oclIsTypeOf(oi::Responder) /]">
+            <style xsi:type="style:FlatContainerStyleDescription" borderSizeComputationExpression="1" labelSize="12" roundedCorner="true" widthComputationExpression="25">
+              <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='light_green']"/>
+              <foregroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
+            </style>
+          </conditionnalStyles>
         </containerMappings>
+        <containerMappings name="AfterObject" domainClass="oi::Object" childrenPresentation="List">
+          <subNodeMappings name="State" semanticCandidatesExpression="feature:state" domainClass="oi::State">
+            <style xsi:type="style:SquareDescription" labelSize="12" showIcon="false" labelExpression="[null/]" labelPosition="node" resizeKind="NSEW">
+              <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
+            </style>
+            <conditionnalStyles predicateExpression="[thisEObject.incoming/]">
+              <style xsi:type="style:SquareDescription" labelSize="12" labelExpression="feature:label" labelPosition="node" resizeKind="NSEW">
+                <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='green']"/>
+                <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='red']"/>
+                <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='dark_blue']"/>
+              </style>
+            </conditionnalStyles>
+            <conditionnalStyles predicateExpression="[thisEObject.outgoing/]">
+              <style xsi:type="style:SquareDescription" labelSize="12" showIcon="false" labelExpression="[null/]" labelPosition="node" resizeKind="NSEW">
+                <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='blue']"/>
+                <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='blue']"/>
+                <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='blue']"/>
+              </style>
+            </conditionnalStyles>
+          </subNodeMappings>
+          <style xsi:type="style:FlatContainerStyleDescription" borderSizeComputationExpression="1" labelSize="12" tooltipExpression="feature:eAllContents" roundedCorner="true" widthComputationExpression="25">
+            <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
+            <foregroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='light_purple']"/>
+          </style>
+          <conditionnalStyles predicateExpression="[ thisEObject.oclIsTypeOf(oi::Initiator) /]">
+            <style xsi:type="style:FlatContainerStyleDescription" borderSizeComputationExpression="1" labelSize="12" roundedCorner="true" widthComputationExpression="25">
+              <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='light_blue']"/>
+              <foregroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='light_blue']"/>
+            </style>
+          </conditionnalStyles>
+          <conditionnalStyles predicateExpression="[ thisEObject.oclIsTypeOf(oi::Responder) /]">
+            <style xsi:type="style:FlatContainerStyleDescription" borderSizeComputationExpression="1" labelSize="12" roundedCorner="true" widthComputationExpression="25">
+              <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='light_green']"/>
+              <foregroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='light_green']"/>
+            </style>
+          </conditionnalStyles>
+          <conditionnalStyles predicateExpression="[ thisEObject.oclIsTypeOf(oi::Object) and oi::ObjectInteraction.allInstances()->select(o | o.object->includes(thisEObject))->isEmpty() /]">
+            <style xsi:type="style:FlatContainerStyleDescription" borderSizeComputationExpression="1" labelSize="12" roundedCorner="true" widthComputationExpression="25">
+              <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='light_purple']"/>
+              <foregroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='light_purple']"/>
+            </style>
+          </conditionnalStyles>
+        </containerMappings>
+        <toolSections name="SectionCreation">
+          <ownedTools xsi:type="tool:NodeCreationDescription" name="CreateActionTool" label="Action" nodeMappings="//@ownedViewpoints[name='Oi%20Viewpoint']/@ownedRepresentations[name='ObjectInteraction']/@defaultLayer/@nodeMappings[name='Action']">
+            <variable name="container"/>
+            <viewVariable name="containerView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:CreateInstance" typeName="oi::Action" referenceName="action">
+                <subModelOperations xsi:type="tool_1:SetValue" featureName="name" valueExpression="var:name"/>
+              </firstModelOperations>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:NodeCreationDescription" name="CreateObjectStateTool" label="ObjectState" nodeMappings="//@ownedViewpoints[name='Oi%20Viewpoint']/@ownedRepresentations[name='ObjectInteraction']/@defaultLayer/@containerMappings[name='BeforeObject']/@subNodeMappings[name='State'] //@ownedViewpoints[name='Oi%20Viewpoint']/@ownedRepresentations[name='ObjectInteraction']/@defaultLayer/@containerMappings[name='AfterObject']/@subNodeMappings[name='State']">
+            <variable name="container"/>
+            <viewVariable name="containerView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:CreateInstance" typeName="oi::State" referenceName="typeState">
+                <subModelOperations xsi:type="tool_1:SetValue" featureName="name" valueExpression="var:name"/>
+              </firstModelOperations>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:ContainerCreationDescription" name="CreationObjectTool" label="Object" containerMappings="//@ownedViewpoints[name='Oi%20Viewpoint']/@ownedRepresentations[name='ObjectInteraction']/@defaultLayer/@containerMappings[name='AfterObject'] //@ownedViewpoints[name='Oi%20Viewpoint']/@ownedRepresentations[name='ObjectInteraction']/@defaultLayer/@containerMappings[name='BeforeObject']">
+            <variable name="container"/>
+            <viewVariable name="containerView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:CreateInstance" typeName="oi::Object" referenceName="object">
+                <subModelOperations xsi:type="tool_1:CreateInstance" typeName="oi::Position" referenceName="objectPosition">
+                  <subModelOperations xsi:type="tool_1:SetValue" featureName="x" valueExpression="var:x"/>
+                  <subModelOperations xsi:type="tool_1:SetValue" featureName="y" valueExpression="var:y"/>
+                </subModelOperations>
+                <subModelOperations xsi:type="tool_1:CreateInstance" typeName="oi::Type" referenceName="objectType">
+                  <subModelOperations xsi:type="tool_1:SetValue" featureName="name" valueExpression="var:name"/>
+                </subModelOperations>
+              </firstModelOperations>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:ContainerCreationDescription" name="CreationObjectTool2" label="Object2" containerMappings="//@ownedViewpoints[name='Oi%20Viewpoint']/@ownedRepresentations[name='ObjectInteraction']/@defaultLayer/@containerMappings[name='AfterObject'] //@ownedViewpoints[name='Oi%20Viewpoint']/@ownedRepresentations[name='ObjectInteraction']/@defaultLayer/@containerMappings[name='BeforeObject']">
+            <variable name="container"/>
+            <viewVariable name="containerView">
+              <subVariables xsi:type="tool_1:SelectModelElementVariable" candidatesExpression="feature:eContents"/>
+            </viewVariable>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:CreateInstance" typeName="oi::Type" referenceName="objectType">
+                <subModelOperations xsi:type="tool_1:SetValue" featureName="name" valueExpression="var:name"/>
+              </firstModelOperations>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:NodeCreationDescription" name="CreationStateTool" label="State" nodeMappings="//@ownedViewpoints[name='Oi%20Viewpoint']/@ownedRepresentations[name='ObjectInteraction']/@defaultLayer/@containerMappings[name='AfterObject']/@subNodeMappings[name='State'] //@ownedViewpoints[name='Oi%20Viewpoint']/@ownedRepresentations[name='ObjectInteraction']/@defaultLayer/@containerMappings[name='BeforeObject']/@subNodeMappings[name='State']">
+            <variable name="container">
+              <subVariables xsi:type="tool_1:SelectModelElementVariable" name="stateContainer" candidatesExpression="aql:self.eContents()->filter(oi::State)" tree="true" message="Select a container for the State"/>
+            </variable>
+            <viewVariable name="containerView">
+              <subVariables xsi:type="tool_1:SelectModelElementVariable" name="stateSpecialization" candidatesExpression="aql:Sequence{'Position', 'Connection', 'Direction', 'Type'}" message="Select the type of the State"/>
+              <subVariables xsi:type="tool_1:AcceleoVariable"/>
+            </viewVariable>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:CreateInstance" typeName="oi::State" referenceName="State">
+                <subModelOperations xsi:type="tool_1:SetValue" featureName="state specialization" valueExpression="var:specialization"/>
+              </firstModelOperations>
+            </initialOperation>
+          </ownedTools>
+        </toolSections>
       </defaultLayer>
     </ownedRepresentations>
     <ownedJavaExtensions qualifiedClassName="no.ntnu.tdt4250.oi.design.Services"/>
   </ownedViewpoints>
   <extensions xsi:type="properties:ViewExtensionDescription" name="Properties">
     <categories name="Default Category">
-      <pages name="Default Page" labelExpression="Page" semanticCandidateExpression="var:self" groups="//@extensions.0/@categories.0/@groups.0"/>
-      <groups name="Default Group" labelExpression="Group" semanticCandidateExpression="var:self">
+      <pages name="Default Page" labelExpression="Action Properties" domainClass="oi::Action" semanticCandidateExpression="var:self" groups="//@extensions.0/@categories.0/@groups.0"/>
+      <groups name="Default Group" labelExpression="Group" domainClass="oi::Action" semanticCandidateExpression="var:self">
         <controls xsi:type="properties:TextDescription" labelExpression="Name" valueExpression="feature:name">
           <initialOperation>
-            <firstModelOperations xsi:type="tool:ChangeContext" browseExpression="var:self"/>
+            <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="var:self">
+              <subModelOperations xsi:type="tool_1:SetValue" featureName="name" valueExpression="var:newValue"/>
+            </firstModelOperations>
           </initialOperation>
         </controls>
         <controls xsi:type="properties:CheckboxDescription" name="Initial" labelExpression="Initial" valueExpression="aql:(self.eContainer().oclAsType(oi::ObjectInteraction).name != &quot;Player Pushes Rock&quot;)">
           <initialOperation>
-            <firstModelOperations xsi:type="tool:ChangeContext" browseExpression="var:self"/>
+            <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="var:self"/>
           </initialOperation>
         </controls>
       </groups>

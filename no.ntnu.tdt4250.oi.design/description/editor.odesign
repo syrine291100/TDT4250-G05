@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<description:Group xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:description="http://www.eclipse.org/sirius/description/1.1.0" xmlns:description_1="http://www.eclipse.org/sirius/diagram/description/1.1.0" xmlns:description_2="http://www.eclipse.org/sirius/table/description/1.1.0" xmlns:style="http://www.eclipse.org/sirius/diagram/description/style/1.1.0" xmlns:tool="http://www.eclipse.org/sirius/diagram/description/tool/1.1.0" xmlns:tool_1="http://www.eclipse.org/sirius/description/tool/1.1.0" name="editor" version="12.0.0.2017041100">
+  <ownedViewpoints name="DiagramView">
+    <ownedRepresentations xsi:type="description_1:DiagramDescription" name="SMDiagram" initialisation="true" domainClass="sm::StateMachine" enablePopupBars="true">
+      <metamodel href="../../no.ntnu.tdt4250.sm/model/sm.ecore#/"/>
+      <defaultLayer name="Default">
+        <nodeMappings name="StateNode" domainClass="sm::State">
+          <style xsi:type="style:EllipseNodeDescription" labelSize="12" showIcon="false" resizeKind="NSEW">
+            <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='yellow']"/>
+          </style>
+        </nodeMappings>
+        <toolSections name="MainPalette">
+          <ownedTools xsi:type="tool:NodeCreationDescription" name="NodeCreationTool" nodeMappings="//@ownedViewpoints[name='DiagramView']/@ownedRepresentations[name='SMDiagram']/@defaultLayer/@nodeMappings[name='StateNode']">
+            <variable name="container"/>
+            <viewVariable name="containerView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:CreateInstance" typeName="sm::State" referenceName="state">
+                <subModelOperations xsi:type="tool_1:SetValue" featureName="name" valueExpression="ThisIsANewState"/>
+              </firstModelOperations>
+            </initialOperation>
+          </ownedTools>
+        </toolSections>
+      </defaultLayer>
+      <additionalLayers name="TransitionsLayer">
+        <edgeMappings name="TransitionEdge" sourceMapping="//@ownedViewpoints[name='DiagramView']/@ownedRepresentations[name='SMDiagram']/@defaultLayer/@nodeMappings[name='StateNode']" targetMapping="//@ownedViewpoints[name='DiagramView']/@ownedRepresentations[name='SMDiagram']/@defaultLayer/@nodeMappings[name='StateNode']" targetFinderExpression="feature:target" sourceFinderExpression="feature:source" domainClass="sm::Transition" useDomainElement="true">
+          <style sizeComputationExpression="2">
+            <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
+            <centerLabelStyleDescription labelSize="12" showIcon="false" labelExpression="feature:name">
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            </centerLabelStyleDescription>
+          </style>
+        </edgeMappings>
+        <toolSections>
+          <ownedTools xsi:type="tool:EdgeCreationDescription" name="CreateTransition" edgeMappings="//@ownedViewpoints[name='DiagramView']/@ownedRepresentations[name='SMDiagram']/@additionalLayers[name='TransitionsLayer']/@edgeMappings[name='TransitionEdge']">
+            <sourceVariable name="source"/>
+            <targetVariable name="target"/>
+            <sourceViewVariable name="sourceView"/>
+            <targetViewVariable name="targetView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:CreateInstance"/>
+            </initialOperation>
+          </ownedTools>
+        </toolSections>
+      </additionalLayers>
+    </ownedRepresentations>
+    <ownedRepresentations xsi:type="description_2:EditionTableDescription" name="SMEditionTable" initialisation="true" domainClass="sm::StateMachine">
+      <ownedLineMappings name="LineState" domainClass="sm::State" headerLabelExpression="feature:name"/>
+      <ownedColumnMappings name="FInitial" headerLabelExpression="IsInitial?" featureName="initial">
+        <defaultForeground>
+          <foreGroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+        </defaultForeground>
+        <defaultBackground>
+          <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
+        </defaultBackground>
+      </ownedColumnMappings>
+      <ownedColumnMappings name="FOutgoing" featureName="outgoing" labelExpression="aql:lineSemantic.outgoing.name">
+        <defaultForeground>
+          <foreGroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+        </defaultForeground>
+        <defaultBackground>
+          <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
+        </defaultBackground>
+      </ownedColumnMappings>
+    </ownedRepresentations>
+    <ownedRepresentations xsi:type="description_2:CrossTableDescription" name="CrossTable" domainClass="sm::StateMachine">
+      <ownedLineMappings name="CrossLine" domainClass="sm::State" headerLabelExpression="feature:name"/>
+      <ownedColumnMappings name="CrossColumn" headerLabelExpression="feature:name" domainClass="sm::State"/>
+      <intersection name="CrossIntersection" lineMapping="//@ownedViewpoints[name='DiagramView']/@ownedRepresentations[name='CrossTable']/@ownedLineMappings[name='CrossLine']" columnMapping="//@ownedViewpoints[name='DiagramView']/@ownedRepresentations[name='CrossTable']/@ownedColumnMappings.0" labelExpression="X" columnFinderExpression="[ self.outgoing.target /]"/>
+    </ownedRepresentations>
+    <ownedJavaExtensions qualifiedClassName="no.ntnu.tdt4250.sm.diagram.editor.Services"/>
+  </ownedViewpoints>
+</description:Group>
